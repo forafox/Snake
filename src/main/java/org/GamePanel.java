@@ -8,7 +8,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 import java.util.Random;
-
 /**
  * @author Karabanov Andrey
  * @version 1.0
@@ -17,17 +16,17 @@ import java.util.Random;
 public class GamePanel extends JPanel implements ActionListener {
     static final int SCREEN_WIDTH = 600;
     static final int SCREEN_HEIGHT = 600;
-    static final int UNIT_SIZE = 25;//размер ячейки
-    static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
-    static final int DELAY = 75;
-    final int x[] = new int[GAME_UNITS];
-    final int y[] = new int[GAME_UNITS];
-    int bodyParts = 6;
-    int applesEaten;
-    int appleX;
-    int appleY;
-    char direction = 'R';
-    boolean running = false;
+    static final int UNIT_SIZE = 25;
+    static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE; //Number of cells
+    static final int DELAY = 75;//Game speed
+    final int x[] = new int[GAME_UNITS];//array with max number cells
+    final int y[] = new int[GAME_UNITS];//array with max number cells
+    int bodyParts = 6; //Start length Snake
+    int applesEaten; //Score
+    int appleX; //Apple Coordinate X
+    int appleY; //Apple Coordinate Y
+    char direction = 'R'; //Starting direction of the snake
+    boolean running = false; //Checking of is started game or not
     Timer timer;
     Random random;
 
@@ -94,7 +93,6 @@ public class GamePanel extends JPanel implements ActionListener {
             x[i] = x[i - 1];
             y[i] = y[i - 1];
         }
-
         switch (direction) {
             case 'U':
                 y[0] = y[0] - UNIT_SIZE;
@@ -113,9 +111,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void checkApple() {
         if ((x[0] == appleX) && (y[0] == appleY)) {
-            bodyParts++;
-            applesEaten++;
-            newApple();
+            bodyParts++; // increase by one body
+            applesEaten++; // increase by one score
+            newApple(); //Create a new apple
         }
     }
 
@@ -165,12 +163,12 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (running) {
-            move();
-            checkApple();
-            checkCollisions();
+            move(); //Snake is running
+            checkApple();//Apple is checking
+            checkCollisions();//Collisions is checking
 
         }
-        repaint();
+        repaint(); // repair window element
     }
 
     public class MyKeyAdapter extends KeyAdapter {

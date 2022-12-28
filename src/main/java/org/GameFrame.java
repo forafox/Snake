@@ -10,12 +10,12 @@ import javax.swing.*;
 public class GameFrame extends JFrame {
     GameFrame(){
         this.add(new GamePanel());
-        this.setTitle("Snake");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.pack();
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);//Где будет располагаться наше окно
+        this.setTitle("Snake"); // set Title
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //programming the action after closing the window
+        this.setResizable(false); //Can change this frame?
+        this.pack(); //Automatic window resizing
+        this.setVisible(true);//set window visible
+        this.setLocationRelativeTo(null); //Window is locate in centre
         ;
     }
 }
