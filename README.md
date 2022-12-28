@@ -2,7 +2,7 @@
 <!-- ?raw=true "Title -->
 
 > A simple game for developing java programming skills
-![Alt text](https://github.com/forafox/Snake/blob/master/images/gameRun.png ?raw=true "Title" width="200" height="200")
+<img src="[http://....jpg](https://github.com/forafox/Snake/blob/master/images/gameRun.png)" width="200" height="200" />
 ## Functionality included
 - set of points for eating apples
 ## About the code
