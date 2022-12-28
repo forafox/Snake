@@ -1,7 +1,8 @@
 # SnakeGame
+<!-- ?raw=true "Title -->
 
 > A simple game for developing java programming skills
-![Alt text](https://github.com/forafox/Snake/blob/master/images/gameRun.png =100x100?raw=true "Title")
+![Alt text](https://github.com/forafox/Snake/blob/master/images/gameRun.png" width="200" height="200")
 ## Functionality included
 - set of points for eating apples
 ## About the code
