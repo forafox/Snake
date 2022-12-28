@@ -3,7 +3,7 @@
 
 > A simple game for developing java programming skills
 <img src="https://github.com/forafox/Snake/blob/master/images/gameRun.png" width="200" height="200" />
-
+<img src="https://github.com/forafox/Snake/blob/master/images/GameStop.png" width="200" height="200" />
 ## Functionality included
 - set of points for eating apples
 ## About the code
