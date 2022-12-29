@@ -40,8 +40,8 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void startGame() {
-        newApple();
-        running = true;
+        newApple(); //create a new apple
+        running = true;//start a new game
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
+            //Print the score
             g.setColor(Color.red);
             g.setFont(new Font("Ink Free",Font.BOLD,40));
             FontMetrics metrics= getFontMetrics(g.getFont());
@@ -80,19 +81,18 @@ public class GamePanel extends JPanel implements ActionListener {
             gameOver(g);
         }
     }
-
-    //Random возращает целое число из диапазона.
-    //nextInt считывает это
     public void newApple() {
         appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;//без юнит.сайз будут распологаться не в клетках.
         appleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
     }
 
     public void move() {
+        //Snake body movement
         for (int i = bodyParts; i > 0; i--) {
             x[i] = x[i - 1];
             y[i] = y[i - 1];
         }
+        //Snake head movement
         switch (direction) {
             case 'U':
                 y[0] = y[0] - UNIT_SIZE;
@@ -118,25 +118,25 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkCollisions() {
-        //проверка если голова столкнется с туловщем
+        //Checking that the head don't clash with the body
         for (int i = bodyParts; i > 0; i--) {
             if ((x[0] == x[i]) && (y[0] == y[i])) {
                 running = false;
             }
         }
-        //проверка если голова столкнется с  левой границей
+        //Checking that the head don't clash with the left wall
         if (x[0] < 0) {
             running = false;
         }
-        //проверка если голова столкнется с правой границйей
+        //Checking that the head don't clash with the right wall
         if (x[0] > SCREEN_WIDTH) {
             running = false;
         }
-        //проверка если голова столкнется с верхом
+        //Checking that the head don't clash with the Upper wall
         if (y[0] < 0) {
             running = false;
         }
-        //проверка если голова столкнется с низом
+        //Checking that the head don't clash with the down wall
         if (y[0] > SCREEN_HEIGHT) {
             running = false;
         }
@@ -146,7 +146,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void gameOver(Graphics g) {
-        //Score
+        //Score text
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free",Font.BOLD,40));
         FontMetrics metrics1= getFontMetrics(g.getFont());
@@ -165,12 +165,16 @@ public class GamePanel extends JPanel implements ActionListener {
         if (running) {
             move(); //Snake is running
             checkApple();//Apple is checking
-            checkCollisions();//Collisions is checking
+            checkCollisions();//Collisions are checking
 
         }
         repaint(); // repair window element
     }
-
+    /*
+    R-> <-L
+    ^-U v-D
+    choosing the direction of the snake and checking that the directions are not opposite
+     */
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
