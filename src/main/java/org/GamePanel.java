@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     GamePanel() {
         random = new Random();
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT)); //set new Size
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
@@ -53,19 +53,19 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void draw(Graphics g) {
         if (running) {
-            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {//делаем разделение на квадраты
-                g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);//линии вертиклаьное
-                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);//линии горизонтально
+            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {//Creating square layout
+                g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);//Creating vertical layout lines
+                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);//Creating horizontal layout lines
             }
             g.setColor(Color.red);
-            g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);//координаты и размеры
-            for (int i = 0; i < bodyParts; i++) {//закрашиваем части змеми
+            g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);//coordinates and dimensions
+            for (int i = 0; i < bodyParts; i++) {//painting the parts of the snake
                 if (i == 0) {
                     g.setColor(Color.green);
-                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);//закрасить квадрат
+                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);//paint the square
                 } else {
                     g.setColor(new Color(45, 180, 0));
-                    //Рандомный цвет каждое движение
+                    //Random color for the part of the snake
                     // g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
     public void newApple() {
-        appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;//без юнит.сайз будут распологаться не в клетках.
+        appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
         appleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
     }
 
