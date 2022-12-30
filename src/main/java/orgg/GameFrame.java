@@ -1,6 +1,7 @@
-package org;
+package orgg;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author Karabanov Andrey
@@ -9,13 +10,15 @@ import javax.swing.*;
  */
 public class GameFrame extends JFrame {
     GameFrame(){
-        this.add(new GamePanel());
+        this.add(new StartGamePanel());
         this.setTitle("Snake"); // set Title
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //programming the action after closing the window
         this.setResizable(false); //Can change this frame?
         this.pack(); //Automatic window resizing
         this.setVisible(true);//set window visible
         this.setLocationRelativeTo(null); //Window is locate in centre
-        ;
+
+
+        this.setDefaultLookAndFeelDecorated(true);
     }
 }

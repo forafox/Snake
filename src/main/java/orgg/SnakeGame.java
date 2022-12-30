@@ -1,4 +1,4 @@
-package org;
+package orgg;
 
 /**
  * @author Karabanov Andrey

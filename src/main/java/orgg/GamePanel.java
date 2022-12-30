@@ -1,4 +1,4 @@
-package org;
+package orgg;
 
 import javax.swing.*;
 import java.awt.*;
