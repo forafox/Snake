@@ -1,5 +1,6 @@
 package orgg;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +20,10 @@ import java.util.concurrent.TimeUnit;
  * @date 27.12.2022 1:15
  */
 public class GamePanel extends JPanel implements ActionListener {
+    static boolean checkMessageDialog;
+    static boolean alreadyExecuted;
+    static int levelDifficult;
+    static final int levelDifficultFactor=5;
     static final int SCREEN_WIDTH = 600;
     static final int SCREEN_HEIGHT = 600;
     static final int UNIT_SIZE = 25;
@@ -23,6 +31,9 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int DELAY = 75;//Game speed
     final int x[] = new int[GAME_UNITS];//array with max number cells
     final int y[] = new int[GAME_UNITS];//array with max number cells
+
+    final int xBarrier[]=new int[GAME_UNITS];//array for barrier
+    final int yBarrier[]=new int[GAME_UNITS];//array for barrier
     int bodyParts = 6; //Start length Snake
     int applesEaten; //Score
     int appleX; //Apple Coordinate X
@@ -32,7 +43,11 @@ public class GamePanel extends JPanel implements ActionListener {
     Timer timer;
     Random random;
 
-    GamePanel() {
+    long startTime;
+    long stopTime;
+    long elapsedTime;
+    GamePanel(int number) {
+        levelDifficult=number;
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT)); //set new Size
         this.setBackground(Color.BLACK);
@@ -42,15 +57,33 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void startGame() {
+        alreadyExecuted=false;
+        checkMessageDialog=true;
         newApple(); //create a new apple
         running = true;//start a new game
         timer = new Timer(DELAY, this);
+        startTime=System.currentTimeMillis();
         timer.start();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
+        createBarrier(g);
+    }
+
+    public void createBarrier(Graphics g){
+        g.setColor(Color.GRAY);
+        if(!alreadyExecuted)
+        for (int i = 0; i <levelDifficultFactor*levelDifficult ; i++) {
+         xBarrier[i]=random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
+         yBarrier[i]=random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+        }
+
+        for(int i=0;i<levelDifficultFactor*levelDifficult;i++){
+            g.fillRect(xBarrier[i],yBarrier[i],UNIT_SIZE,UNIT_SIZE);
+        }
+        alreadyExecuted = true;
     }
 
     public void draw(Graphics g) {
@@ -59,6 +92,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);//Creating vertical layout lines
                 g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);//Creating horizontal layout lines
             }
+
             g.setColor(Color.red);
             g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);//coordinates and dimensions
             for (int i = 0; i < bodyParts; i++) {//painting the parts of the snake
@@ -84,8 +118,11 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
     public void newApple() {
-        appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
-        appleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+            appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
+            appleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+        for (int i = 0; i < levelDifficultFactor*levelDifficult; i++) {
+            if(appleX==xBarrier[i] && appleY==yBarrier[i]) newApple();
+        }
     }
 
     public void move() {
@@ -126,6 +163,13 @@ public class GamePanel extends JPanel implements ActionListener {
                 running = false;
             }
         }
+        //Checking that the head don't clash with the barrier
+        for (int i = 0; i < levelDifficultFactor*levelDifficult; i++) {
+            if ((x[0] == xBarrier[i]) && (y[0] == yBarrier[i])) {
+                running = false;
+            }
+        }
+
         //Checking that the head don't clash with the left wall
         if (x[0] < 0) {
             running = false;
@@ -161,7 +205,12 @@ public class GamePanel extends JPanel implements ActionListener {
     //Action//
 
     public void gameOver(Graphics g) {
-        JOptionPane.showMessageDialog(null,"Игра окончена. \nРезультат\nЯблок съедено: "+applesEaten);
+        stopTime = System.currentTimeMillis();
+        System.out.println(elapsedTime);
+        if(checkMessageDialog) {
+            checkMessageDialog=false;
+            JOptionPane.showMessageDialog(null, "Игра окончена. \nРезультат\nЯблок съедено: " + applesEaten + "\nВремени прошло: " + (stopTime - startTime) / 1000 + " секунд");
+        }
         createMain();
     }
 

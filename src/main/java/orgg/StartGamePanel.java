@@ -1,10 +1,14 @@
 package orgg;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -13,6 +17,17 @@ import java.util.Random;
  * @date 31.12.2022 0:48
  */
 public class StartGamePanel extends JPanel {
+    BufferedImage myPicture;
+
+    {
+        try {
+            myPicture = ImageIO.read(new File("D:\\JavaProject\\Snake\\src\\main\\java\\img\\SnakePicture.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    JLabel picLabel = new JLabel(new ImageIcon(myPicture));
     static final int SCREEN_WIDTH = 600;
     static final int SCREEN_HEIGHT = 600;
 
@@ -60,6 +75,22 @@ public class StartGamePanel extends JPanel {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         //////////////////set main settings////////////////
+        //images//
+        BufferedImage myPicture;
+
+        {
+            try {
+                myPicture = ImageIO.read(new File("D:\\JavaProject\\Snake\\src\\main\\java\\img\\SnakePicture.png"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        picLabel.setBounds(300,300,50,50);
+        this.add(picLabel);
+
+        //images//
 
         //Action//
         ActionListener actionListener = new TestActionListener();
