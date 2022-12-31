@@ -10,7 +10,9 @@ package orgg;
 Main class, contains MAIN.class
  */
 public class SnakeGame {
+    public static GameFrame frameCheck;
     public static void main(String[] args) {
-        GameFrame frame = new GameFrame();//Create a new Game logic
+        GameFrame frame = new GameFrame(0);//Create a new Game logic
+        frameCheck=frame;
     }
 }

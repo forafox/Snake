@@ -8,6 +8,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Karabanov Andrey
  * @version 1.0
@@ -145,19 +147,28 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+    //Action//
+    public class TestActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            SnakeGame.frameCheck.dispose();
+            GameFrame gamePanel= new GameFrame(0);
+            SnakeGame.frameCheck=gamePanel;
+        }
+
+    }
+    //Action//
+
     public void gameOver(Graphics g) {
-        //Score text
-        g.setColor(Color.red);
-        g.setFont(new Font("Ink Free",Font.BOLD,40));
-        FontMetrics metrics1= getFontMetrics(g.getFont());
-        g.drawString("Score: "+applesEaten,(SCREEN_WIDTH-metrics1.stringWidth("Score: "+applesEaten))/2,g.getFont().getSize());
+        JOptionPane.showMessageDialog(null,"Игра окончена. \nРезультат\nЯблок съедено: "+applesEaten);
+        createMain();
+    }
 
-        //Game Over text
-        g.setColor(Color.red);
-        g.setFont(new Font("Ink Free",Font.BOLD,75));
-        FontMetrics metrics2= getFontMetrics(g.getFont());
-        g.drawString("Game Over",(SCREEN_WIDTH-metrics2.stringWidth("Game Over"))/2,SCREEN_HEIGHT/2);
-
+    public void createMain(){
+        SnakeGame.frameCheck.dispose();
+        GameFrame startGamePanel = new GameFrame(0);
+        SnakeGame.frameCheck=startGamePanel;
     }
 
     @Override
