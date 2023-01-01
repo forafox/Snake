@@ -76,8 +76,8 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.GRAY);
         if(!alreadyExecuted)
         for (int i = 0; i <levelDifficultFactor*levelDifficult ; i++) {
-         xBarrier[i]=random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
-         yBarrier[i]=random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+         xBarrier[i]=(random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE))) * UNIT_SIZE;
+         yBarrier[i]=(random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)-1)+1) * UNIT_SIZE;
         }
 
         for(int i=0;i<levelDifficultFactor*levelDifficult;i++){
@@ -209,7 +209,7 @@ public class GamePanel extends JPanel implements ActionListener {
         System.out.println(elapsedTime);
         if(checkMessageDialog) {
             checkMessageDialog=false;
-            JOptionPane.showMessageDialog(null, "Игра окончена. \nРезультат\nЯблок съедено: " + applesEaten + "\nВремени прошло: " + (stopTime - startTime) / 1000 + " секунд");
+            JOptionPane.showMessageDialog(null, "The game is over. \nResult\nApples eaten: " + applesEaten + "\nTime has passed: " + (stopTime - startTime) / 1000 + " second");
         }
         createMain();
     }
