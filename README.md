@@ -2,7 +2,7 @@
 <!-- ?raw=true "Title -->
 
 > A simple game for developing java programming skills
-<img src="https://github.com/forafox/Snake/blob/Game-release-One/images/GameMenu.png" width="200" height="200"/>
+<img src="https://github.com/forafox/Snake/blob/Game_release_One/images/GameMenu.png" width="200" height="200"/>
 <img src="https://github.com/forafox/Snake/blob/Game-release-One/images/levelChoise.png" width="200" height="200"/>
 <img src="https://github.com/forafox/Snake/blob/Game-release-One/images/gameRun.png" width="200" height="200"/>
 <img src="https://github.com/forafox/Snake/blob/Game-release-One/images/GameResult.png" width="200" height="200"/>
