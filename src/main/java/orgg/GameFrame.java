@@ -15,6 +15,8 @@ public class GameFrame extends JFrame {
             this.add(new GamePanel(number));
         }
         this.setTitle("Snake"); // set Title
+        SnakeGame.imageIcon=new ImageIcon((this.getClass().getResource("/SnakePicture.png")));
+        this.setIconImage(SnakeGame.imageIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //programming the action after closing the window
         this.setResizable(false); //Can change this frame?
         this.pack(); //Automatic window resizing

@@ -53,7 +53,7 @@ public class StartGamePanel extends JPanel {
         //////////////////set main settings////////////////
 
         //images//
-        JLabel picLabel = new JLabel(new ImageIcon((this.getClass().getResource("/SnakePicture.png"))));
+        final JLabel picLabel = new JLabel(new ImageIcon((this.getClass().getResource("/SnakePicture.png"))));
         picLabel.setBounds(300, 300, 50, 50);
         this.add(picLabel);
         //images//
