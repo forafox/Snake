@@ -1,15 +1,9 @@
 package orgg;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
 
 /**
  * @author Karabanov Andrey
@@ -17,17 +11,6 @@ import java.util.Random;
  * @date 31.12.2022 0:48
  */
 public class StartGamePanel extends JPanel {
-    BufferedImage myPicture;
-
-    {
-        try {
-            myPicture = ImageIO.read(new File("D:\\JavaProject\\Snake\\src\\main\\java\\img\\SnakePicture.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    JLabel picLabel = new JLabel(new ImageIcon(myPicture));
     static final int SCREEN_WIDTH = 600;
     static final int SCREEN_HEIGHT = 600;
 
@@ -36,61 +19,45 @@ public class StartGamePanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            switch (e.getActionCommand()){
-                case("level 1 work"):
+            switch (e.getActionCommand()) {
+                case ("level 1 work"):
                     SnakeGame.frameCheck.dispose();
-                    GameFrame levelOnePanel = new GameFrame(1);
-                    SnakeGame.frameCheck=levelOnePanel;
+                    SnakeGame.frameCheck = new GameFrame(1);
                     break;
-                case("level 2 work"):
+                case ("level 2 work"):
                     SnakeGame.frameCheck.dispose();
-                    GameFrame levelTwoPanel = new GameFrame(2);
-                    SnakeGame.frameCheck=levelTwoPanel;
+                    SnakeGame.frameCheck = new GameFrame(2);
                     break;
-                case("level 3 work"):
+                case ("level 3 work"):
                     SnakeGame.frameCheck.dispose();
-                    GameFrame levelThreePanel = new GameFrame(3);
-                    SnakeGame.frameCheck=levelThreePanel;
+                    SnakeGame.frameCheck = new GameFrame(3);
                     break;
-                case("level 4 work"):
+                case ("level 4 work"):
                     SnakeGame.frameCheck.dispose();
-                    GameFrame levelFourPanel = new GameFrame(4);
-                    SnakeGame.frameCheck=levelFourPanel;
+                    SnakeGame.frameCheck = new GameFrame(4);
                     break;
-                case("level 5 work"):
+                case ("level 5 work"):
                     SnakeGame.frameCheck.dispose();
-                    GameFrame levelFivePanel = new GameFrame(5);
-                    SnakeGame.frameCheck=levelFivePanel;
+                    SnakeGame.frameCheck = new GameFrame(5);
                     break;
             }
         }
     }
-    //Action//
 
     StartGamePanel() {
         this.setLayout(new BorderLayout());//set new Layout
-
         //////////////////set main settings////////////////
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT)); //set new Size
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         //////////////////set main settings////////////////
+
         //images//
-        BufferedImage myPicture;
-
-        {
-            try {
-                myPicture = ImageIO.read(new File("D:\\JavaProject\\Snake\\src\\main\\java\\img\\SnakePicture.png"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        picLabel.setBounds(300,300,50,50);
+        JLabel picLabel = new JLabel(new ImageIcon((this.getClass().getResource("/SnakePicture.png"))));
+        picLabel.setBounds(300, 300, 50, 50);
         this.add(picLabel);
-
         //images//
+
 
         //Action//
         ActionListener actionListener = new TestActionListener();
@@ -99,7 +66,7 @@ public class StartGamePanel extends JPanel {
 
         //////////////////create button///////////////
         JButton southButtonAboutAuthor = new JButton("About the Author");//Create new Button
-        this.add(southButtonAboutAuthor,BorderLayout.SOUTH);// location at the bottom
+        this.add(southButtonAboutAuthor, BorderLayout.SOUTH);// location at the bottom
         //////////////////create button////////////////////
 
 
@@ -112,7 +79,6 @@ public class StartGamePanel extends JPanel {
         JMenuItem level4 = new JMenuItem("level 4");
         JMenuItem level5 = new JMenuItem("level 5");
 
-
         level1.setActionCommand("level 1 work");
         level1.addActionListener(actionListener);
         level2.setActionCommand("level 2 work");
@@ -124,7 +90,6 @@ public class StartGamePanel extends JPanel {
         level5.setActionCommand("level 5 work");
         level5.addActionListener(actionListener);
 
-
         menu.add(level1);
         menu.add(level2);
         menu.add(level3);
@@ -132,10 +97,7 @@ public class StartGamePanel extends JPanel {
         menu.add(level5);
 
         menuBar.add(menu);
-        this.add(menuBar,BorderLayout.NORTH);
+        this.add(menuBar, BorderLayout.NORTH);
         //////////////////Create Jmenu////////////////
-
-
-
     }
 }

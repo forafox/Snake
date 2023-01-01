@@ -1,18 +1,12 @@
 package orgg;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Karabanov Andrey
@@ -23,17 +17,17 @@ public class GamePanel extends JPanel implements ActionListener {
     static boolean checkMessageDialog;
     static boolean alreadyExecuted;
     static int levelDifficult;
-    static final int levelDifficultFactor=5;
+    static final int levelDifficultFactor = 5;
     static final int SCREEN_WIDTH = 600;
     static final int SCREEN_HEIGHT = 600;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE; //Number of cells
     static final int DELAY = 75;//Game speed
-    final int x[] = new int[GAME_UNITS];//array with max number cells
-    final int y[] = new int[GAME_UNITS];//array with max number cells
+    final int[] x = new int[GAME_UNITS];//array with max number cells
+    final int[] y = new int[GAME_UNITS];//array with max number cells
 
-    final int xBarrier[]=new int[GAME_UNITS];//array for barrier
-    final int yBarrier[]=new int[GAME_UNITS];//array for barrier
+    final int[] xBarrier = new int[GAME_UNITS];//array for barrier
+    final int[] yBarrier = new int[GAME_UNITS];//array for barrier
     int bodyParts = 6; //Start length Snake
     int applesEaten; //Score
     int appleX; //Apple Coordinate X
@@ -46,8 +40,9 @@ public class GamePanel extends JPanel implements ActionListener {
     long startTime;
     long stopTime;
     long elapsedTime;
+
     GamePanel(int number) {
-        levelDifficult=number;
+        levelDifficult = number;
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT)); //set new Size
         this.setBackground(Color.BLACK);
@@ -57,12 +52,12 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void startGame() {
-        alreadyExecuted=false;
-        checkMessageDialog=true;
+        alreadyExecuted = false;
+        checkMessageDialog = true;
         newApple(); //create a new apple
         running = true;//start a new game
         timer = new Timer(DELAY, this);
-        startTime=System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         timer.start();
     }
 
@@ -72,16 +67,16 @@ public class GamePanel extends JPanel implements ActionListener {
         createBarrier(g);
     }
 
-    public void createBarrier(Graphics g){
+    public void createBarrier(Graphics g) {
         g.setColor(Color.GRAY);
-        if(!alreadyExecuted)
-        for (int i = 0; i <levelDifficultFactor*levelDifficult ; i++) {
-         xBarrier[i]=(random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE))) * UNIT_SIZE;
-         yBarrier[i]=(random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)-1)+1) * UNIT_SIZE;
-        }
+        if (!alreadyExecuted)
+            for (int i = 0; i < levelDifficultFactor * levelDifficult; i++) {
+                xBarrier[i] = (random.nextInt(SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
+                yBarrier[i] = (random.nextInt((SCREEN_HEIGHT / UNIT_SIZE) - 1) + 1) * UNIT_SIZE;
+            }
 
-        for(int i=0;i<levelDifficultFactor*levelDifficult;i++){
-            g.fillRect(xBarrier[i],yBarrier[i],UNIT_SIZE,UNIT_SIZE);
+        for (int i = 0; i < levelDifficultFactor * levelDifficult; i++) {
+            g.fillRect(xBarrier[i], yBarrier[i], UNIT_SIZE, UNIT_SIZE);
         }
         alreadyExecuted = true;
     }
@@ -108,20 +103,20 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             //Print the score
             g.setColor(Color.red);
-            g.setFont(new Font("Ink Free",Font.BOLD,40));
-            FontMetrics metrics= getFontMetrics(g.getFont());
-            g.drawString("Score: "+applesEaten,(SCREEN_WIDTH-metrics.stringWidth("Score: "+applesEaten))/2,g.getFont().getSize());
+            g.setFont(new Font("Ink Free", Font.BOLD, 40));
+            FontMetrics metrics = getFontMetrics(g.getFont());
+            g.drawString("Score: " + applesEaten, (SCREEN_WIDTH - metrics.stringWidth("Score: " + applesEaten)) / 2, g.getFont().getSize());
 
-        }
-        else{
-            gameOver(g);
+        } else {
+            gameOver();
         }
     }
+
     public void newApple() {
-            appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
-            appleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
-        for (int i = 0; i < levelDifficultFactor*levelDifficult; i++) {
-            if(appleX==xBarrier[i] && appleY==yBarrier[i]) newApple();
+        appleX = random.nextInt((SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
+        appleY = random.nextInt((SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+        for (int i = 0; i < levelDifficultFactor * levelDifficult; i++) {
+            if (appleX == xBarrier[i] && appleY == yBarrier[i]) newApple();
         }
     }
 
@@ -161,12 +156,14 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = bodyParts; i > 0; i--) {
             if ((x[0] == x[i]) && (y[0] == y[i])) {
                 running = false;
+                break;
             }
         }
         //Checking that the head don't clash with the barrier
-        for (int i = 0; i < levelDifficultFactor*levelDifficult; i++) {
+        for (int i = 0; i < levelDifficultFactor * levelDifficult; i++) {
             if ((x[0] == xBarrier[i]) && (y[0] == yBarrier[i])) {
                 running = false;
+                break;
             }
         }
 
@@ -193,31 +190,28 @@ public class GamePanel extends JPanel implements ActionListener {
 
     //Action//
     public class TestActionListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             SnakeGame.frameCheck.dispose();
-            GameFrame gamePanel= new GameFrame(0);
-            SnakeGame.frameCheck=gamePanel;
+            SnakeGame.frameCheck = new GameFrame(0);
         }
 
     }
     //Action//
 
-    public void gameOver(Graphics g) {
+    public void gameOver() {
         stopTime = System.currentTimeMillis();
         System.out.println(elapsedTime);
-        if(checkMessageDialog) {
-            checkMessageDialog=false;
+        if (checkMessageDialog) {
+            checkMessageDialog = false;
             JOptionPane.showMessageDialog(null, "The game is over. \nResult\nApples eaten: " + applesEaten + "\nTime has passed: " + (stopTime - startTime) / 1000 + " second");
         }
         createMain();
     }
 
-    public void createMain(){
+    public void createMain() {
         SnakeGame.frameCheck.dispose();
-        GameFrame startGamePanel = new GameFrame(0);
-        SnakeGame.frameCheck=startGamePanel;
+        SnakeGame.frameCheck = new GameFrame(0);
     }
 
     @Override
@@ -230,11 +224,8 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         repaint(); // repair window element
     }
-    /*
-    R-> <-L
-    ^-U v-D
-    choosing the direction of the snake and checking that the directions are not opposite
-     */
+
+    //choosing the direction of the snake and checking that the directions are not opposite
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
