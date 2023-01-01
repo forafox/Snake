@@ -17,7 +17,7 @@
 - Java
 - Building with Maven
 ## Setup
-- Downoload "SnakeGame-release.jar"
+- Downoload "SnakeGame_Final.jar"
 ## Run
-- "java -jar SnakeGame-release.jar"
+- "java -jar SnakeGame_Final.jar"
 
